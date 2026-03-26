@@ -1,26 +1,83 @@
 @import "tailwindcss";
 
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --foreground: #000000;
+  --border-color: #000000;
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
+
+/* Tablo tasarımı: Endüstriyel ve temiz */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #f3f4f6;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+/* Buton ve Input alanları için standart */
+select, input, button {
+  border: 1px solid var(--border-color);
+  padding: 8px 12px;
+  border-radius: 0px; /* Keskin köşeler, teknik sistem görünümü */
+}
+
+/* Hata ve başarı durumları */
+.success-bg { background-color: #f0fdf4; }
+.error-text { color: #dc2626; }
+
+/* Okunabilirliği artıran satır rengi */
+tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+
+@media print {
+    /* Eğer tekli yazdırma modundaysak */
+    body.printing-single-order * {
+      visibility: hidden;
+      height: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Sadece seçili siparişi ve içindekileri göster */
+    body.printing-single-order .printable-order,
+    body.printing-single-order .printable-order * {
+      visibility: visible;
+      height: auto;
+    }
+
+    /* Yazdırma alanını sayfanın en üstüne sabitle */
+    body.printing-single-order .printable-order {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Yazdırma sırasında gereksiz butonları gizle */
+    .print\:hidden {
+      display: none !important;
+    }
+  }
